@@ -1,0 +1,69 @@
+erDiagram
+    CITIES ||--o{ PLACES : contains
+    PLACE_CATEGORIES ||--o{ PLACES : classifies
+    CITIES o|--o{ USERS : home_city
+    PLACES ||--o{ OPENING_HOURS : has
+    PLACES ||--o{ PLACE_REVIEWS : receives
+    USERS ||--o{ PLACE_REVIEWS : writes
+    USERS ||--o{ SAVED_PLACES : saves
+    PLACES ||--o{ SAVED_PLACES : appears_in
+    CITIES ||--o{ ROAD_SEGMENTS : contains
+    ROAD_SEGMENTS ||--o{ TRAFFIC_READINGS : records
+    USERS o|--o{ NAVIGATION_SESSIONS : starts
+    PLACES o|--o{ NAVIGATION_SESSIONS : origin
+    PLACES ||--o{ NAVIGATION_SESSIONS : destination
+    ROAD_SEGMENTS ||--o{ INCIDENT_REPORTS : has
+    USERS ||--o{ INCIDENT_REPORTS : reports
+
+    CITIES {
+        int city_id PK
+        varchar city_name
+    }
+    PLACE_CATEGORIES {
+        int category_id PK
+        varchar category_name
+    }
+    USERS {
+        int user_id PK
+        varchar email UK
+        int home_city_id FK
+    }
+    PLACES {
+        int place_id PK
+        varchar plus_code UK
+        int city_id FK
+        int category_id FK
+    }
+    OPENING_HOURS {
+        int place_id PK, FK
+        smallint weekday PK
+    }
+    PLACE_REVIEWS {
+        int review_id PK
+        int place_id FK
+        int user_id FK
+    }
+    SAVED_PLACES {
+        int user_id PK, FK
+        int place_id PK, FK
+        varchar list_name PK
+    }
+    ROAD_SEGMENTS {
+        int segment_id PK
+        int city_id FK
+    }
+    TRAFFIC_READINGS {
+        bigint reading_id PK
+        int segment_id FK
+    }
+    NAVIGATION_SESSIONS {
+        bigint session_id PK
+        int user_id FK
+        int origin_place_id FK
+        int dest_place_id FK
+    }
+    INCIDENT_REPORTS {
+        int report_id PK
+        int segment_id FK
+        int user_id FK
+    }
