@@ -1,0 +1,96 @@
+=== R04 run 1 ===
+Limit  (cost=3115.50..3115.58 rows=30 width=45) (actual time=6.146..6.148 rows=30.00 loops=1)
+  Buffers: shared hit=725 read=190
+  ->  Sort  (cost=3115.50..3117.40 rows=757 width=45) (actual time=6.145..6.146 rows=30.00 loops=1)
+        Sort Key: p.avg_rating DESC NULLS LAST
+        Sort Method: top-N heapsort  Memory: 29kB
+        Buffers: shared hit=725 read=190
+        ->  Hash Join  (cost=1027.76..3093.15 rows=757 width=45) (actual time=2.390..6.090 rows=264.00 loops=1)
+              Hash Cond: (h.place_id = p.place_id)
+              Buffers: shared hit=722 read=190
+              ->  Index Only Scan using idx_opening_hours_weekday_place on opening_hours h  (cost=0.42..2027.79 rows=14484 width=20) (actual time=0.574..3.741 rows=13338.00 loops=1)
+                    Index Cond: (weekday = 6)
+                    Filter: (((opens < closes) AND ('23:30:00'::time without time zone >= opens) AND ('23:30:00'::time without time zone <= closes)) OR ((opens > closes) AND (('23:30:00'::time without time zone >= opens) OR ('23:30:00'::time without time zone < closes))))
+                    Rows Removed by Filter: 22700
+                    Heap Fetches: 0
+                    Index Searches: 1
+                    Buffers: shared hit=5 read=180
+              ->  Hash  (cost=1001.16..1001.16 rows=2094 width=29) (actual time=1.756..1.757 rows=2121.00 loops=1)
+                    Buckets: 4096  Batches: 1  Memory Usage: 157kB
+                    Buffers: shared hit=717 read=10
+                    ->  Bitmap Heap Scan on places p  (cost=57.75..1001.16 rows=2094 width=29) (actual time=0.641..1.570 rows=2121.00 loops=1)
+                          Recheck Cond: ((city_id = 1) AND (category_id = 1) AND (NOT is_permanently_closed))
+                          Heap Blocks: exact=717
+                          Buffers: shared hit=717 read=10
+                          ->  Bitmap Index Scan on idx_places_active_city_category  (cost=0.00..57.23 rows=2094 width=0) (actual time=0.602..0.602 rows=2121.00 loops=1)
+                                Index Cond: ((city_id = 1) AND (category_id = 1))
+                                Index Searches: 1
+                                Buffers: shared read=10
+Planning:
+  Buffers: shared hit=362
+Planning Time: 0.799 ms
+Execution Time: 6.185 ms
+=== R04 run 2 ===
+Limit  (cost=3115.50..3115.58 rows=30 width=45) (actual time=2.914..2.916 rows=30.00 loops=1)
+  Buffers: shared hit=915
+  ->  Sort  (cost=3115.50..3117.40 rows=757 width=45) (actual time=2.913..2.914 rows=30.00 loops=1)
+        Sort Key: p.avg_rating DESC NULLS LAST
+        Sort Method: top-N heapsort  Memory: 29kB
+        Buffers: shared hit=915
+        ->  Hash Join  (cost=1027.76..3093.15 rows=757 width=45) (actual time=0.855..2.870 rows=264.00 loops=1)
+              Hash Cond: (h.place_id = p.place_id)
+              Buffers: shared hit=912
+              ->  Index Only Scan using idx_opening_hours_weekday_place on opening_hours h  (cost=0.42..2027.79 rows=14484 width=20) (actual time=0.009..1.604 rows=13338.00 loops=1)
+                    Index Cond: (weekday = 6)
+                    Filter: (((opens < closes) AND ('23:30:00'::time without time zone >= opens) AND ('23:30:00'::time without time zone <= closes)) OR ((opens > closes) AND (('23:30:00'::time without time zone >= opens) OR ('23:30:00'::time without time zone < closes))))
+                    Rows Removed by Filter: 22700
+                    Heap Fetches: 0
+                    Index Searches: 1
+                    Buffers: shared hit=185
+              ->  Hash  (cost=1001.16..1001.16 rows=2094 width=29) (actual time=0.831..0.831 rows=2121.00 loops=1)
+                    Buckets: 4096  Batches: 1  Memory Usage: 157kB
+                    Buffers: shared hit=727
+                    ->  Bitmap Heap Scan on places p  (cost=57.75..1001.16 rows=2094 width=29) (actual time=0.095..0.712 rows=2121.00 loops=1)
+                          Recheck Cond: ((city_id = 1) AND (category_id = 1) AND (NOT is_permanently_closed))
+                          Heap Blocks: exact=717
+                          Buffers: shared hit=727
+                          ->  Bitmap Index Scan on idx_places_active_city_category  (cost=0.00..57.23 rows=2094 width=0) (actual time=0.060..0.060 rows=2121.00 loops=1)
+                                Index Cond: ((city_id = 1) AND (category_id = 1))
+                                Index Searches: 1
+                                Buffers: shared hit=10
+Planning:
+  Buffers: shared hit=362
+Planning Time: 0.499 ms
+Execution Time: 2.941 ms
+=== R04 run 3 ===
+Limit  (cost=3115.50..3115.58 rows=30 width=45) (actual time=2.882..2.884 rows=30.00 loops=1)
+  Buffers: shared hit=915
+  ->  Sort  (cost=3115.50..3117.40 rows=757 width=45) (actual time=2.881..2.882 rows=30.00 loops=1)
+        Sort Key: p.avg_rating DESC NULLS LAST
+        Sort Method: top-N heapsort  Memory: 29kB
+        Buffers: shared hit=915
+        ->  Hash Join  (cost=1027.76..3093.15 rows=757 width=45) (actual time=0.849..2.839 rows=264.00 loops=1)
+              Hash Cond: (h.place_id = p.place_id)
+              Buffers: shared hit=912
+              ->  Index Only Scan using idx_opening_hours_weekday_place on opening_hours h  (cost=0.42..2027.79 rows=14484 width=20) (actual time=0.009..1.578 rows=13338.00 loops=1)
+                    Index Cond: (weekday = 6)
+                    Filter: (((opens < closes) AND ('23:30:00'::time without time zone >= opens) AND ('23:30:00'::time without time zone <= closes)) OR ((opens > closes) AND (('23:30:00'::time without time zone >= opens) OR ('23:30:00'::time without time zone < closes))))
+                    Rows Removed by Filter: 22700
+                    Heap Fetches: 0
+                    Index Searches: 1
+                    Buffers: shared hit=185
+              ->  Hash  (cost=1001.16..1001.16 rows=2094 width=29) (actual time=0.826..0.826 rows=2121.00 loops=1)
+                    Buckets: 4096  Batches: 1  Memory Usage: 157kB
+                    Buffers: shared hit=727
+                    ->  Bitmap Heap Scan on places p  (cost=57.75..1001.16 rows=2094 width=29) (actual time=0.095..0.706 rows=2121.00 loops=1)
+                          Recheck Cond: ((city_id = 1) AND (category_id = 1) AND (NOT is_permanently_closed))
+                          Heap Blocks: exact=717
+                          Buffers: shared hit=727
+                          ->  Bitmap Index Scan on idx_places_active_city_category  (cost=0.00..57.23 rows=2094 width=0) (actual time=0.062..0.062 rows=2121.00 loops=1)
+                                Index Cond: ((city_id = 1) AND (category_id = 1))
+                                Index Searches: 1
+                                Buffers: shared hit=10
+Planning:
+  Buffers: shared hit=362
+Planning Time: 0.492 ms
+Execution Time: 2.908 ms

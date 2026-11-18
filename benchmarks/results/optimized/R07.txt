@@ -1,0 +1,66 @@
+=== R07 run 1 ===
+Unique  (cost=309.42..316.92 rows=1500 width=48) (actual time=3.703..3.915 rows=40.00 loops=1)
+  Buffers: shared hit=117 read=69
+  ->  Sort  (cost=309.42..313.17 rows=1500 width=48) (actual time=3.703..3.793 rows=5048.00 loops=1)
+        Sort Key: t.segment_id, t.recorded_at DESC
+        Sort Method: quicksort  Memory: 577kB
+        Buffers: shared hit=117 read=69
+        ->  Nested Loop  (cost=0.42..230.29 rows=1500 width=48) (actual time=0.128..3.272 rows=5048.00 loops=1)
+              Buffers: shared hit=111 read=69
+              ->  Seq Scan on road_segments s  (cost=0.00..60.00 rows=12 width=29) (actual time=0.006..0.108 rows=40.00 loops=1)
+                    Filter: (((road_name)::text ~~ 'Outer Ring Road%'::text) AND (city_id = 1))
+                    Rows Removed by Filter: 1960
+                    Buffers: shared hit=30
+              ->  Index Only Scan using idx_traffic_segment_recorded on traffic_readings t  (cost=0.42..12.94 rows=125 width=23) (actual time=0.051..0.074 rows=126.20 loops=40)
+                    Index Cond: (segment_id = s.segment_id)
+                    Heap Fetches: 0
+                    Index Searches: 40
+                    Buffers: shared hit=81 read=69
+Planning:
+  Buffers: shared hit=206 read=6
+Planning Time: 1.620 ms
+Execution Time: 4.083 ms
+=== R07 run 2 ===
+Unique  (cost=309.42..316.92 rows=1500 width=48) (actual time=0.810..0.995 rows=40.00 loops=1)
+  Buffers: shared hit=186
+  ->  Sort  (cost=309.42..313.17 rows=1500 width=48) (actual time=0.809..0.891 rows=5048.00 loops=1)
+        Sort Key: t.segment_id, t.recorded_at DESC
+        Sort Method: quicksort  Memory: 577kB
+        Buffers: shared hit=186
+        ->  Nested Loop  (cost=0.42..230.29 rows=1500 width=48) (actual time=0.008..0.484 rows=5048.00 loops=1)
+              Buffers: shared hit=180
+              ->  Seq Scan on road_segments s  (cost=0.00..60.00 rows=12 width=29) (actual time=0.004..0.073 rows=40.00 loops=1)
+                    Filter: (((road_name)::text ~~ 'Outer Ring Road%'::text) AND (city_id = 1))
+                    Rows Removed by Filter: 1960
+                    Buffers: shared hit=30
+              ->  Index Only Scan using idx_traffic_segment_recorded on traffic_readings t  (cost=0.42..12.94 rows=125 width=23) (actual time=0.002..0.006 rows=126.20 loops=40)
+                    Index Cond: (segment_id = s.segment_id)
+                    Heap Fetches: 0
+                    Index Searches: 40
+                    Buffers: shared hit=150
+Planning:
+  Buffers: shared hit=212
+Planning Time: 0.367 ms
+Execution Time: 1.020 ms
+=== R07 run 3 ===
+Unique  (cost=309.42..316.92 rows=1500 width=48) (actual time=0.837..1.024 rows=40.00 loops=1)
+  Buffers: shared hit=186
+  ->  Sort  (cost=309.42..313.17 rows=1500 width=48) (actual time=0.837..0.920 rows=5048.00 loops=1)
+        Sort Key: t.segment_id, t.recorded_at DESC
+        Sort Method: quicksort  Memory: 577kB
+        Buffers: shared hit=186
+        ->  Nested Loop  (cost=0.42..230.29 rows=1500 width=48) (actual time=0.009..0.492 rows=5048.00 loops=1)
+              Buffers: shared hit=180
+              ->  Seq Scan on road_segments s  (cost=0.00..60.00 rows=12 width=29) (actual time=0.004..0.077 rows=40.00 loops=1)
+                    Filter: (((road_name)::text ~~ 'Outer Ring Road%'::text) AND (city_id = 1))
+                    Rows Removed by Filter: 1960
+                    Buffers: shared hit=30
+              ->  Index Only Scan using idx_traffic_segment_recorded on traffic_readings t  (cost=0.42..12.94 rows=125 width=23) (actual time=0.002..0.006 rows=126.20 loops=40)
+                    Index Cond: (segment_id = s.segment_id)
+                    Heap Fetches: 0
+                    Index Searches: 40
+                    Buffers: shared hit=150
+Planning:
+  Buffers: shared hit=212
+Planning Time: 0.390 ms
+Execution Time: 1.050 ms

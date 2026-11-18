@@ -1,0 +1,81 @@
+=== R16 run 1 ===
+Sort  (cost=7117.23..7120.23 rows=1201 width=32) (actual time=12.641..12.656 rows=895.00 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 70kB
+  Buffers: shared hit=3947
+  ->  HashAggregate  (cost=7043.79..7055.80 rows=1201 width=32) (actual time=12.545..12.582 rows=895.00 loops=1)
+        Group Key: p.place_id
+        Batches: 1  Memory Usage: 121kB
+        Buffers: shared hit=3944
+        ->  Hash Join  (cost=1327.43..7033.83 rows=1992 width=24) (actual time=7.360..12.364 rows=1986.00 loops=1)
+              Hash Cond: (n.dest_place_id = p.place_id)
+              Buffers: shared hit=3944
+              ->  Seq Scan on navigation_sessions n  (cost=0.00..5532.00 rows=66429 width=4) (actual time=5.076..8.210 rows=66300.00 loops=1)
+                    Filter: (started_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+                    Rows Removed by Filter: 133700
+                    Buffers: shared hit=3032
+              ->  Hash  (cost=1312.42..1312.42 rows=1201 width=24) (actual time=2.272..2.273 rows=1167.00 loops=1)
+                    Buckets: 2048  Batches: 1  Memory Usage: 80kB
+                    Buffers: shared hit=912
+                    ->  Seq Scan on places p  (cost=0.00..1312.42 rows=1201 width=24) (actual time=0.005..2.206 rows=1167.00 loops=1)
+                          Filter: is_permanently_closed
+                          Rows Removed by Filter: 38875
+                          Buffers: shared hit=912
+Planning:
+  Buffers: shared hit=193
+Planning Time: 0.371 ms
+Execution Time: 12.710 ms
+=== R16 run 2 ===
+Sort  (cost=7117.23..7120.23 rows=1201 width=32) (actual time=13.010..13.025 rows=895.00 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 70kB
+  Buffers: shared hit=3947
+  ->  HashAggregate  (cost=7043.79..7055.80 rows=1201 width=32) (actual time=12.918..12.956 rows=895.00 loops=1)
+        Group Key: p.place_id
+        Batches: 1  Memory Usage: 121kB
+        Buffers: shared hit=3944
+        ->  Hash Join  (cost=1327.43..7033.83 rows=1992 width=24) (actual time=7.844..12.757 rows=1986.00 loops=1)
+              Hash Cond: (n.dest_place_id = p.place_id)
+              Buffers: shared hit=3944
+              ->  Seq Scan on navigation_sessions n  (cost=0.00..5532.00 rows=66429 width=4) (actual time=5.375..8.449 rows=66300.00 loops=1)
+                    Filter: (started_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+                    Rows Removed by Filter: 133700
+                    Buffers: shared hit=3032
+              ->  Hash  (cost=1312.42..1312.42 rows=1201 width=24) (actual time=2.456..2.456 rows=1167.00 loops=1)
+                    Buckets: 2048  Batches: 1  Memory Usage: 80kB
+                    Buffers: shared hit=912
+                    ->  Seq Scan on places p  (cost=0.00..1312.42 rows=1201 width=24) (actual time=0.007..2.381 rows=1167.00 loops=1)
+                          Filter: is_permanently_closed
+                          Rows Removed by Filter: 38875
+                          Buffers: shared hit=912
+Planning:
+  Buffers: shared hit=193
+Planning Time: 0.307 ms
+Execution Time: 13.076 ms
+=== R16 run 3 ===
+Sort  (cost=7117.23..7120.23 rows=1201 width=32) (actual time=12.354..12.369 rows=895.00 loops=1)
+  Sort Key: (count(*)) DESC
+  Sort Method: quicksort  Memory: 70kB
+  Buffers: shared hit=3947
+  ->  HashAggregate  (cost=7043.79..7055.80 rows=1201 width=32) (actual time=12.258..12.297 rows=895.00 loops=1)
+        Group Key: p.place_id
+        Batches: 1  Memory Usage: 121kB
+        Buffers: shared hit=3944
+        ->  Hash Join  (cost=1327.43..7033.83 rows=1992 width=24) (actual time=7.321..12.104 rows=1986.00 loops=1)
+              Hash Cond: (n.dest_place_id = p.place_id)
+              Buffers: shared hit=3944
+              ->  Seq Scan on navigation_sessions n  (cost=0.00..5532.00 rows=66429 width=4) (actual time=5.041..8.080 rows=66300.00 loops=1)
+                    Filter: (started_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+                    Rows Removed by Filter: 133700
+                    Buffers: shared hit=3032
+              ->  Hash  (cost=1312.42..1312.42 rows=1201 width=24) (actual time=2.266..2.266 rows=1167.00 loops=1)
+                    Buckets: 2048  Batches: 1  Memory Usage: 80kB
+                    Buffers: shared hit=912
+                    ->  Seq Scan on places p  (cost=0.00..1312.42 rows=1201 width=24) (actual time=0.005..2.202 rows=1167.00 loops=1)
+                          Filter: is_permanently_closed
+                          Rows Removed by Filter: 38875
+                          Buffers: shared hit=912
+Planning:
+  Buffers: shared hit=193
+Planning Time: 0.315 ms
+Execution Time: 12.418 ms

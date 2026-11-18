@@ -1,0 +1,48 @@
+=== R02 run 1 ===
+Nested Loop Left Join  (cost=0.71..16.76 rows=1 width=94) (actual time=0.500..0.501 rows=1.00 loops=1)
+  Buffers: shared hit=7 read=3 dirtied=1
+  ->  Index Scan using places_pkey on places p  (cost=0.29..8.31 rows=1 width=78) (actual time=0.021..0.021 rows=1.00 loops=1)
+        Index Cond: (place_id = 18)
+        Index Searches: 1
+        Buffers: shared hit=3 dirtied=1
+  ->  Index Only Scan using idx_opening_hours_weekday_place on opening_hours h  (cost=0.42..8.44 rows=1 width=20) (actual time=0.478..0.478 rows=1.00 loops=1)
+        Index Cond: ((weekday = 2) AND (place_id = 18))
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=4 read=3
+Planning:
+  Buffers: shared hit=320 read=1 dirtied=1
+Planning Time: 0.988 ms
+Execution Time: 0.526 ms
+=== R02 run 2 ===
+Nested Loop Left Join  (cost=0.71..16.76 rows=1 width=94) (actual time=0.039..0.040 rows=1.00 loops=1)
+  Buffers: shared hit=10
+  ->  Index Scan using places_pkey on places p  (cost=0.29..8.31 rows=1 width=78) (actual time=0.006..0.006 rows=1.00 loops=1)
+        Index Cond: (place_id = 18)
+        Index Searches: 1
+        Buffers: shared hit=3
+  ->  Index Only Scan using idx_opening_hours_weekday_place on opening_hours h  (cost=0.42..8.44 rows=1 width=20) (actual time=0.032..0.033 rows=1.00 loops=1)
+        Index Cond: ((weekday = 2) AND (place_id = 18))
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=7
+Planning:
+  Buffers: shared hit=321
+Planning Time: 0.432 ms
+Execution Time: 0.066 ms
+=== R02 run 3 ===
+Nested Loop Left Join  (cost=0.71..16.76 rows=1 width=94) (actual time=0.038..0.038 rows=1.00 loops=1)
+  Buffers: shared hit=10
+  ->  Index Scan using places_pkey on places p  (cost=0.29..8.31 rows=1 width=78) (actual time=0.005..0.006 rows=1.00 loops=1)
+        Index Cond: (place_id = 18)
+        Index Searches: 1
+        Buffers: shared hit=3
+  ->  Index Only Scan using idx_opening_hours_weekday_place on opening_hours h  (cost=0.42..8.44 rows=1 width=20) (actual time=0.031..0.031 rows=1.00 loops=1)
+        Index Cond: ((weekday = 2) AND (place_id = 18))
+        Heap Fetches: 0
+        Index Searches: 1
+        Buffers: shared hit=7
+Planning:
+  Buffers: shared hit=321
+Planning Time: 0.410 ms
+Execution Time: 0.063 ms

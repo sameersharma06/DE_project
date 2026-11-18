@@ -1,0 +1,75 @@
+=== R08 run 1 ===
+Sort  (cost=5376.82..5376.83 rows=2 width=48) (actual time=6.390..7.049 rows=3.00 loops=1)
+  Sort Key: t.recorded_at DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=2195
+  ->  Gather  (cost=1000.28..5376.81 rows=2 width=48) (actual time=6.340..7.040 rows=3.00 loops=1)
+        Workers Planned: 1
+        Workers Launched: 1
+        Buffers: shared hit=2192
+        ->  Nested Loop  (cost=0.28..4376.61 rows=1 width=48) (actual time=5.377..5.387 rows=1.50 loops=2)
+              Buffers: shared hit=2192
+              ->  Parallel Seq Scan on traffic_readings t  (cost=0.00..4325.88 rows=9 width=23) (actual time=5.364..5.367 rows=11.50 loops=2)
+                    Filter: (((congestion_level)::text = ANY ('{HEAVY,STANDSTILL}'::text[])) AND (recorded_at >= '2026-06-30 18:00:00+05:30'::timestamp with time zone))
+                    Rows Removed by Filter: 124988
+                    Buffers: shared hit=2123
+              ->  Index Scan using road_segments_pkey on road_segments s  (cost=0.28..5.63 rows=1 width=29) (actual time=0.002..0.002 rows=0.13 loops=23)
+                    Index Cond: (segment_id = t.segment_id)
+                    Filter: (city_id = 1)
+                    Rows Removed by Filter: 1
+                    Index Searches: 23
+                    Buffers: shared hit=69
+Planning:
+  Buffers: shared hit=297
+Planning Time: 0.353 ms
+Execution Time: 7.066 ms
+=== R08 run 2 ===
+Sort  (cost=5376.82..5376.83 rows=2 width=48) (actual time=6.629..7.206 rows=3.00 loops=1)
+  Sort Key: t.recorded_at DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=2196
+  ->  Gather  (cost=1000.28..5376.81 rows=2 width=48) (actual time=6.604..7.198 rows=3.00 loops=1)
+        Workers Planned: 1
+        Workers Launched: 1
+        Buffers: shared hit=2193
+        ->  Nested Loop  (cost=0.28..4376.61 rows=1 width=48) (actual time=5.615..5.621 rows=1.50 loops=2)
+              Buffers: shared hit=2193
+              ->  Parallel Seq Scan on traffic_readings t  (cost=0.00..4325.88 rows=9 width=23) (actual time=5.601..5.603 rows=11.50 loops=2)
+                    Filter: (((congestion_level)::text = ANY ('{HEAVY,STANDSTILL}'::text[])) AND (recorded_at >= '2026-06-30 18:00:00+05:30'::timestamp with time zone))
+                    Rows Removed by Filter: 124988
+                    Buffers: shared hit=2123
+              ->  Index Scan using road_segments_pkey on road_segments s  (cost=0.28..5.63 rows=1 width=29) (actual time=0.001..0.001 rows=0.13 loops=23)
+                    Index Cond: (segment_id = t.segment_id)
+                    Filter: (city_id = 1)
+                    Rows Removed by Filter: 1
+                    Index Searches: 23
+                    Buffers: shared hit=70
+Planning:
+  Buffers: shared hit=297
+Planning Time: 0.329 ms
+Execution Time: 7.221 ms
+=== R08 run 3 ===
+Sort  (cost=5376.82..5376.83 rows=2 width=48) (actual time=6.604..7.295 rows=3.00 loops=1)
+  Sort Key: t.recorded_at DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=2195
+  ->  Gather  (cost=1000.28..5376.81 rows=2 width=48) (actual time=6.577..7.286 rows=3.00 loops=1)
+        Workers Planned: 1
+        Workers Launched: 1
+        Buffers: shared hit=2192
+        ->  Nested Loop  (cost=0.28..4376.61 rows=1 width=48) (actual time=5.600..5.609 rows=1.50 loops=2)
+              Buffers: shared hit=2192
+              ->  Parallel Seq Scan on traffic_readings t  (cost=0.00..4325.88 rows=9 width=23) (actual time=5.564..5.567 rows=11.50 loops=2)
+                    Filter: (((congestion_level)::text = ANY ('{HEAVY,STANDSTILL}'::text[])) AND (recorded_at >= '2026-06-30 18:00:00+05:30'::timestamp with time zone))
+                    Rows Removed by Filter: 124988
+                    Buffers: shared hit=2123
+              ->  Index Scan using road_segments_pkey on road_segments s  (cost=0.28..5.63 rows=1 width=29) (actual time=0.003..0.003 rows=0.13 loops=23)
+                    Index Cond: (segment_id = t.segment_id)
+                    Filter: (city_id = 1)
+                    Rows Removed by Filter: 1
+                    Index Searches: 23
+                    Buffers: shared hit=69
+Planning:
+  Buffers: shared hit=297
+Planning Time: 0.335 ms
+Execution Time: 7.311 ms

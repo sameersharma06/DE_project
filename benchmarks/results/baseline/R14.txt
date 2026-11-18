@@ -1,0 +1,81 @@
+=== R14 run 1 ===
+Limit  (cost=3608.49..3608.54 rows=20 width=31) (actual time=8.478..8.479 rows=20.00 loops=1)
+  Buffers: shared hit=1269
+  ->  Sort  (cost=3608.49..3625.48 rows=6794 width=31) (actual time=8.477..8.478 rows=20.00 loops=1)
+        Sort Key: (count(*)) DESC, (sum(r.photo_count)) DESC
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=1269
+        ->  HashAggregate  (cost=3359.76..3427.70 rows=6794 width=31) (actual time=7.921..8.169 rows=5621.00 loops=1)
+              Group Key: u.user_id
+              Batches: 1  Memory Usage: 665kB
+              Buffers: shared hit=1266
+              ->  Hash Join  (cost=1326.00..3308.81 rows=6794 width=17) (actual time=6.498..7.382 rows=6714.00 loops=1)
+                    Hash Cond: (r.user_id = u.user_id)
+                    Buffers: shared hit=1266
+                    ->  Seq Scan on place_reviews r  (cost=0.00..1964.98 rows=6794 width=6) (actual time=2.655..2.943 rows=6714.00 loops=1)
+                          Filter: (created_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+                          Rows Removed by Filter: 83284
+                          Buffers: shared hit=840
+                    ->  Hash  (cost=826.00..826.00 rows=40000 width=15) (actual time=3.812..3.813 rows=40000.00 loops=1)
+                          Buckets: 65536  Batches: 1  Memory Usage: 2290kB
+                          Buffers: shared hit=426
+                          ->  Seq Scan on users u  (cost=0.00..826.00 rows=40000 width=15) (actual time=0.005..1.952 rows=40000.00 loops=1)
+                                Buffers: shared hit=426
+Planning:
+  Buffers: shared hit=200
+Planning Time: 0.346 ms
+Execution Time: 8.520 ms
+=== R14 run 2 ===
+Limit  (cost=3608.49..3608.54 rows=20 width=31) (actual time=8.291..8.293 rows=20.00 loops=1)
+  Buffers: shared hit=1269
+  ->  Sort  (cost=3608.49..3625.48 rows=6794 width=31) (actual time=8.290..8.292 rows=20.00 loops=1)
+        Sort Key: (count(*)) DESC, (sum(r.photo_count)) DESC
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=1269
+        ->  HashAggregate  (cost=3359.76..3427.70 rows=6794 width=31) (actual time=7.700..7.965 rows=5621.00 loops=1)
+              Group Key: u.user_id
+              Batches: 1  Memory Usage: 665kB
+              Buffers: shared hit=1266
+              ->  Hash Join  (cost=1326.00..3308.81 rows=6794 width=17) (actual time=6.322..7.154 rows=6714.00 loops=1)
+                    Hash Cond: (r.user_id = u.user_id)
+                    Buffers: shared hit=1266
+                    ->  Seq Scan on place_reviews r  (cost=0.00..1964.98 rows=6794 width=6) (actual time=2.728..3.011 rows=6714.00 loops=1)
+                          Filter: (created_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+                          Rows Removed by Filter: 83284
+                          Buffers: shared hit=840
+                    ->  Hash  (cost=826.00..826.00 rows=40000 width=15) (actual time=3.563..3.564 rows=40000.00 loops=1)
+                          Buckets: 65536  Batches: 1  Memory Usage: 2290kB
+                          Buffers: shared hit=426
+                          ->  Seq Scan on users u  (cost=0.00..826.00 rows=40000 width=15) (actual time=0.003..1.694 rows=40000.00 loops=1)
+                                Buffers: shared hit=426
+Planning:
+  Buffers: shared hit=200
+Planning Time: 0.364 ms
+Execution Time: 8.336 ms
+=== R14 run 3 ===
+Limit  (cost=3608.49..3608.54 rows=20 width=31) (actual time=7.992..7.994 rows=20.00 loops=1)
+  Buffers: shared hit=1269
+  ->  Sort  (cost=3608.49..3625.48 rows=6794 width=31) (actual time=7.992..7.992 rows=20.00 loops=1)
+        Sort Key: (count(*)) DESC, (sum(r.photo_count)) DESC
+        Sort Method: top-N heapsort  Memory: 27kB
+        Buffers: shared hit=1269
+        ->  HashAggregate  (cost=3359.76..3427.70 rows=6794 width=31) (actual time=7.439..7.683 rows=5621.00 loops=1)
+              Group Key: u.user_id
+              Batches: 1  Memory Usage: 665kB
+              Buffers: shared hit=1266
+              ->  Hash Join  (cost=1326.00..3308.81 rows=6794 width=17) (actual time=6.067..6.909 rows=6714.00 loops=1)
+                    Hash Cond: (r.user_id = u.user_id)
+                    Buffers: shared hit=1266
+                    ->  Seq Scan on place_reviews r  (cost=0.00..1964.98 rows=6794 width=6) (actual time=2.562..2.860 rows=6714.00 loops=1)
+                          Filter: (created_at >= '2026-01-01 00:00:00+05:30'::timestamp with time zone)
+                          Rows Removed by Filter: 83284
+                          Buffers: shared hit=840
+                    ->  Hash  (cost=826.00..826.00 rows=40000 width=15) (actual time=3.475..3.475 rows=40000.00 loops=1)
+                          Buckets: 65536  Batches: 1  Memory Usage: 2290kB
+                          Buffers: shared hit=426
+                          ->  Seq Scan on users u  (cost=0.00..826.00 rows=40000 width=15) (actual time=0.002..1.707 rows=40000.00 loops=1)
+                                Buffers: shared hit=426
+Planning:
+  Buffers: shared hit=200
+Planning Time: 0.320 ms
+Execution Time: 8.032 ms

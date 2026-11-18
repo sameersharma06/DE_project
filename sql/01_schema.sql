@@ -55,6 +55,7 @@ CREATE TABLE place_reviews (
     review_id INT PRIMARY KEY,
     place_id INT NOT NULL REFERENCES places(place_id),
     user_id INT NOT NULL REFERENCES users(user_id),
+    CONSTRAINT unique_place_user_review UNIQUE (place_id, user_id),
     rating NUMERIC(2,1) NOT NULL CHECK (rating BETWEEN 1 AND 5),
     review_text TEXT,
     photo_count SMALLINT NOT NULL CHECK (photo_count >= 0),
@@ -104,7 +105,7 @@ CREATE TABLE navigation_sessions (
     distance_km NUMERIC(6,2) NOT NULL CHECK (distance_km > 0),
     eta_minutes INT NOT NULL CHECK (eta_minutes > 0),
     actual_minutes INT CHECK (actual_minutes > 0),
-    rerouted_count INT NOT NULL CHECK (rerouted_count >= 0),
+    rerouted_count INT NOT NULL DEFAULT 0 CHECK (rerouted_count >= 0),
     status VARCHAR(30) NOT NULL
         CHECK (status IN ('CANCELLED', 'COMPLETED', 'IN_PROGRESS'))
 );

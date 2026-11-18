@@ -1,0 +1,45 @@
+=== R02 run 1 ===
+Nested Loop Left Join  (cost=0.71..16.76 rows=1 width=94) (actual time=0.027..0.028 rows=1.00 loops=1)
+  Buffers: shared hit=10
+  ->  Index Scan using places_pkey on places p  (cost=0.29..8.31 rows=1 width=78) (actual time=0.007..0.007 rows=1.00 loops=1)
+        Index Cond: (place_id = 18)
+        Index Searches: 1
+        Buffers: shared hit=3
+  ->  Index Scan using opening_hours_pkey on opening_hours h  (cost=0.42..8.44 rows=1 width=20) (actual time=0.019..0.019 rows=1.00 loops=1)
+        Index Cond: ((place_id = 18) AND (weekday = 2))
+        Index Searches: 1
+        Buffers: shared hit=7
+Planning:
+  Buffers: shared hit=251
+Planning Time: 0.338 ms
+Execution Time: 0.052 ms
+=== R02 run 2 ===
+Nested Loop Left Join  (cost=0.71..16.76 rows=1 width=94) (actual time=0.018..0.018 rows=1.00 loops=1)
+  Buffers: shared hit=10
+  ->  Index Scan using places_pkey on places p  (cost=0.29..8.31 rows=1 width=78) (actual time=0.006..0.006 rows=1.00 loops=1)
+        Index Cond: (place_id = 18)
+        Index Searches: 1
+        Buffers: shared hit=3
+  ->  Index Scan using opening_hours_pkey on opening_hours h  (cost=0.42..8.44 rows=1 width=20) (actual time=0.011..0.011 rows=1.00 loops=1)
+        Index Cond: ((place_id = 18) AND (weekday = 2))
+        Index Searches: 1
+        Buffers: shared hit=7
+Planning:
+  Buffers: shared hit=251
+Planning Time: 0.305 ms
+Execution Time: 0.040 ms
+=== R02 run 3 ===
+Nested Loop Left Join  (cost=0.71..16.76 rows=1 width=94) (actual time=0.018..0.018 rows=1.00 loops=1)
+  Buffers: shared hit=10
+  ->  Index Scan using places_pkey on places p  (cost=0.29..8.31 rows=1 width=78) (actual time=0.006..0.006 rows=1.00 loops=1)
+        Index Cond: (place_id = 18)
+        Index Searches: 1
+        Buffers: shared hit=3
+  ->  Index Scan using opening_hours_pkey on opening_hours h  (cost=0.42..8.44 rows=1 width=20) (actual time=0.011..0.011 rows=1.00 loops=1)
+        Index Cond: ((place_id = 18) AND (weekday = 2))
+        Index Searches: 1
+        Buffers: shared hit=7
+Planning:
+  Buffers: shared hit=251
+Planning Time: 0.300 ms
+Execution Time: 0.042 ms

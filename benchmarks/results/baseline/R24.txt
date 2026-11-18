@@ -1,0 +1,57 @@
+=== R24 run 1 ===
+Hash Join  (cost=1539.62..3061.65 rows=80 width=28) (actual time=4.340..4.352 rows=42.00 loops=1)
+  Hash Cond: ((b.name)::text = (a.name)::text)
+  Join Filter: ((b.place_id > a.place_id) AND (abs((b.latitude - a.latitude)) < 0.001) AND (abs((b.longitude - a.longitude)) < 0.001))
+  Rows Removed by Join Filter: 2219
+  Buffers: shared hit=1824
+  ->  Seq Scan on places b  (cost=0.00..1312.42 rows=40042 width=40) (actual time=0.004..0.804 rows=40042.00 loops=1)
+        Buffers: shared hit=912
+  ->  Hash  (cost=1512.63..1512.63 rows=2159 width=40) (actual time=1.924..1.924 rows=2177.00 loops=1)
+        Buckets: 4096  Batches: 1  Memory Usage: 188kB
+        Buffers: shared hit=912
+        ->  Seq Scan on places a  (cost=0.00..1512.63 rows=2159 width=40) (actual time=0.004..1.749 rows=2177.00 loops=1)
+              Filter: ((city_id = 1) AND (category_id = 1))
+              Rows Removed by Filter: 37865
+              Buffers: shared hit=912
+Planning:
+  Buffers: shared hit=373
+Planning Time: 0.329 ms
+Execution Time: 4.374 ms
+=== R24 run 2 ===
+Hash Join  (cost=1539.62..3061.65 rows=80 width=28) (actual time=4.266..4.280 rows=42.00 loops=1)
+  Hash Cond: ((b.name)::text = (a.name)::text)
+  Join Filter: ((b.place_id > a.place_id) AND (abs((b.latitude - a.latitude)) < 0.001) AND (abs((b.longitude - a.longitude)) < 0.001))
+  Rows Removed by Join Filter: 2219
+  Buffers: shared hit=1824
+  ->  Seq Scan on places b  (cost=0.00..1312.42 rows=40042 width=40) (actual time=0.004..0.814 rows=40042.00 loops=1)
+        Buffers: shared hit=912
+  ->  Hash  (cost=1512.63..1512.63 rows=2159 width=40) (actual time=1.823..1.824 rows=2177.00 loops=1)
+        Buckets: 4096  Batches: 1  Memory Usage: 188kB
+        Buffers: shared hit=912
+        ->  Seq Scan on places a  (cost=0.00..1512.63 rows=2159 width=40) (actual time=0.004..1.660 rows=2177.00 loops=1)
+              Filter: ((city_id = 1) AND (category_id = 1))
+              Rows Removed by Filter: 37865
+              Buffers: shared hit=912
+Planning:
+  Buffers: shared hit=373
+Planning Time: 0.314 ms
+Execution Time: 4.301 ms
+=== R24 run 3 ===
+Hash Join  (cost=1539.62..3061.65 rows=80 width=28) (actual time=4.418..4.431 rows=42.00 loops=1)
+  Hash Cond: ((b.name)::text = (a.name)::text)
+  Join Filter: ((b.place_id > a.place_id) AND (abs((b.latitude - a.latitude)) < 0.001) AND (abs((b.longitude - a.longitude)) < 0.001))
+  Rows Removed by Join Filter: 2219
+  Buffers: shared hit=1824
+  ->  Seq Scan on places b  (cost=0.00..1312.42 rows=40042 width=40) (actual time=0.004..0.833 rows=40042.00 loops=1)
+        Buffers: shared hit=912
+  ->  Hash  (cost=1512.63..1512.63 rows=2159 width=40) (actual time=1.887..1.887 rows=2177.00 loops=1)
+        Buckets: 4096  Batches: 1  Memory Usage: 188kB
+        Buffers: shared hit=912
+        ->  Seq Scan on places a  (cost=0.00..1512.63 rows=2159 width=40) (actual time=0.003..1.719 rows=2177.00 loops=1)
+              Filter: ((city_id = 1) AND (category_id = 1))
+              Rows Removed by Filter: 37865
+              Buffers: shared hit=912
+Planning:
+  Buffers: shared hit=373
+Planning Time: 0.339 ms
+Execution Time: 4.453 ms

@@ -1,0 +1,33 @@
+=== R22 run 1 ===
+Limit  (cost=1990.46..1991.45 rows=25 width=25) (actual time=5.745..5.747 rows=25.00 loops=1)
+  Buffers: shared hit=45 read=261
+  ->  Index Only Scan using idx_reviews_created on place_reviews  (cost=0.42..3582.41 rows=89998 width=25) (actual time=0.030..4.937 rows=50025.00 loops=1)
+        Heap Fetches: 110
+        Index Searches: 1
+        Buffers: shared hit=45 read=261
+Planning:
+  Buffers: shared hit=151
+Planning Time: 0.240 ms
+Execution Time: 5.758 ms
+=== R22 run 2 ===
+Limit  (cost=1990.46..1991.45 rows=25 width=25) (actual time=2.751..2.753 rows=25.00 loops=1)
+  Buffers: shared hit=306
+  ->  Index Only Scan using idx_reviews_created on place_reviews  (cost=0.42..3582.41 rows=89998 width=25) (actual time=0.030..1.963 rows=50025.00 loops=1)
+        Heap Fetches: 110
+        Index Searches: 1
+        Buffers: shared hit=306
+Planning:
+  Buffers: shared hit=151
+Planning Time: 0.233 ms
+Execution Time: 2.765 ms
+=== R22 run 3 ===
+Limit  (cost=1990.46..1991.45 rows=25 width=25) (actual time=2.976..2.978 rows=25.00 loops=1)
+  Buffers: shared hit=306
+  ->  Index Only Scan using idx_reviews_created on place_reviews  (cost=0.42..3582.41 rows=89998 width=25) (actual time=0.032..2.160 rows=50025.00 loops=1)
+        Heap Fetches: 110
+        Index Searches: 1
+        Buffers: shared hit=306
+Planning:
+  Buffers: shared hit=151
+Planning Time: 0.237 ms
+Execution Time: 2.991 ms

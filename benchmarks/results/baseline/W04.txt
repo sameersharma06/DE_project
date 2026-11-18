@@ -1,0 +1,75 @@
+=== W04 run 1 ===
+Update on places p  (cost=3492.15..5053.32 rows=0 width=0) (actual time=55.927..55.928 rows=0.00 loops=1)
+  Buffers: shared hit=7809 dirtied=838, temp read=87 written=154
+  ->  Hash Join  (cost=3492.15..5053.32 rows=28724 width=90) (actual time=25.148..31.905 rows=558.00 loops=1)
+        Hash Cond: (p.place_id = s.place_id)
+        Join Filter: ((p.avg_rating IS DISTINCT FROM s.avg_rating) OR (p.review_count <> s.n))
+        Rows Removed by Join Filter: 33873
+        Buffers: shared hit=1752, temp read=87 written=154
+        ->  Seq Scan on places p  (cost=0.00..1312.42 rows=40042 width=19) (actual time=0.005..2.774 rows=40042.00 loops=1)
+              Buffers: shared hit=912
+        ->  Hash  (cost=3133.09..3133.09 rows=28725 width=112) (actual time=25.122..25.123 rows=34431.00 loops=1)
+              Buckets: 65536 (originally 32768)  Batches: 1 (originally 1)  Memory Usage: 3875kB
+              Buffers: shared hit=840, temp read=87 written=154
+              ->  Subquery Scan on s  (cost=2414.97..3133.09 rows=28725 width=112) (actual time=13.376..22.916 rows=34431.00 loops=1)
+                    Buffers: shared hit=840, temp read=87 written=154
+                    ->  HashAggregate  (cost=2414.97..2845.84 rows=28725 width=44) (actual time=13.370..20.688 rows=34431.00 loops=1)
+                          Group Key: place_reviews.place_id
+                          Batches: 5  Memory Usage: 8241kB  Disk Usage: 744kB
+                          Buffers: shared hit=840, temp read=87 written=154
+                          ->  Seq Scan on place_reviews  (cost=0.00..1739.98 rows=89998 width=9) (actual time=0.005..2.163 rows=89998.00 loops=1)
+                                Buffers: shared hit=840
+Planning:
+  Buffers: shared hit=179
+Planning Time: 0.291 ms
+Execution Time: 56.559 ms
+=== W04 run 2 ===
+Update on places p  (cost=3492.15..5053.32 rows=0 width=0) (actual time=34.449..34.450 rows=0.00 loops=1)
+  Buffers: shared hit=8272 dirtied=12, temp read=87 written=154
+  ->  Hash Join  (cost=3492.15..5053.32 rows=28724 width=90) (actual time=25.186..32.062 rows=558.00 loops=1)
+        Hash Cond: (p.place_id = s.place_id)
+        Join Filter: ((p.avg_rating IS DISTINCT FROM s.avg_rating) OR (p.review_count <> s.n))
+        Rows Removed by Join Filter: 33873
+        Buffers: shared hit=1752, temp read=87 written=154
+        ->  Seq Scan on places p  (cost=0.00..1312.42 rows=40042 width=19) (actual time=0.007..3.179 rows=40042.00 loops=1)
+              Buffers: shared hit=912
+        ->  Hash  (cost=3133.09..3133.09 rows=28725 width=112) (actual time=25.161..25.161 rows=34431.00 loops=1)
+              Buckets: 65536 (originally 32768)  Batches: 1 (originally 1)  Memory Usage: 3875kB
+              Buffers: shared hit=840, temp read=87 written=154
+              ->  Subquery Scan on s  (cost=2414.97..3133.09 rows=28725 width=112) (actual time=13.098..22.870 rows=34431.00 loops=1)
+                    Buffers: shared hit=840, temp read=87 written=154
+                    ->  HashAggregate  (cost=2414.97..2845.84 rows=28725 width=44) (actual time=13.093..20.611 rows=34431.00 loops=1)
+                          Group Key: place_reviews.place_id
+                          Batches: 5  Memory Usage: 8241kB  Disk Usage: 744kB
+                          Buffers: shared hit=840, temp read=87 written=154
+                          ->  Seq Scan on place_reviews  (cost=0.00..1739.98 rows=89998 width=9) (actual time=0.007..2.193 rows=89998.00 loops=1)
+                                Buffers: shared hit=840
+Planning:
+  Buffers: shared hit=179
+Planning Time: 0.289 ms
+Execution Time: 35.084 ms
+=== W04 run 3 ===
+Update on places p  (cost=3492.15..5053.32 rows=0 width=0) (actual time=34.267..34.268 rows=0.00 loops=1)
+  Buffers: shared hit=8272 dirtied=12, temp read=87 written=154
+  ->  Hash Join  (cost=3492.15..5053.32 rows=28724 width=90) (actual time=25.174..31.931 rows=558.00 loops=1)
+        Hash Cond: (p.place_id = s.place_id)
+        Join Filter: ((p.avg_rating IS DISTINCT FROM s.avg_rating) OR (p.review_count <> s.n))
+        Rows Removed by Join Filter: 33873
+        Buffers: shared hit=1752, temp read=87 written=154
+        ->  Seq Scan on places p  (cost=0.00..1312.42 rows=40042 width=19) (actual time=0.007..3.107 rows=40042.00 loops=1)
+              Buffers: shared hit=912
+        ->  Hash  (cost=3133.09..3133.09 rows=28725 width=112) (actual time=25.148..25.148 rows=34431.00 loops=1)
+              Buckets: 65536 (originally 32768)  Batches: 1 (originally 1)  Memory Usage: 3875kB
+              Buffers: shared hit=840, temp read=87 written=154
+              ->  Subquery Scan on s  (cost=2414.97..3133.09 rows=28725 width=112) (actual time=13.208..22.882 rows=34431.00 loops=1)
+                    Buffers: shared hit=840, temp read=87 written=154
+                    ->  HashAggregate  (cost=2414.97..2845.84 rows=28725 width=44) (actual time=13.206..20.648 rows=34431.00 loops=1)
+                          Group Key: place_reviews.place_id
+                          Batches: 5  Memory Usage: 8241kB  Disk Usage: 744kB
+                          Buffers: shared hit=840, temp read=87 written=154
+                          ->  Seq Scan on place_reviews  (cost=0.00..1739.98 rows=89998 width=9) (actual time=0.004..2.196 rows=89998.00 loops=1)
+                                Buffers: shared hit=840
+Planning:
+  Buffers: shared hit=179
+Planning Time: 0.280 ms
+Execution Time: 34.612 ms

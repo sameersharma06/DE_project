@@ -1,0 +1,42 @@
+=== R13 run 1 ===
+Seq Scan on places p  (cost=4252.29..5664.82 rows=20021 width=24) (actual time=16.726..16.726 rows=0.00 loops=1)
+  Filter: (NOT (ANY (place_id = (hashed SubPlan 1).col1)))
+  Rows Removed by Filter: 40042
+  Buffers: shared hit=914 read=183
+  SubPlan 1
+    ->  Index Only Scan using idx_navigation_origin_place on navigation_sessions n  (cost=0.29..3752.29 rows=200000 width=4) (actual time=0.240..5.601 rows=200000.00 loops=1)
+          Heap Fetches: 14
+          Index Searches: 1
+          Buffers: shared hit=2 read=183
+Planning:
+  Buffers: shared hit=192
+Planning Time: 0.417 ms
+Execution Time: 16.758 ms
+=== R13 run 2 ===
+Seq Scan on places p  (cost=4252.29..5664.82 rows=20021 width=24) (actual time=15.614..15.615 rows=0.00 loops=1)
+  Filter: (NOT (ANY (place_id = (hashed SubPlan 1).col1)))
+  Rows Removed by Filter: 40042
+  Buffers: shared hit=1097
+  SubPlan 1
+    ->  Index Only Scan using idx_navigation_origin_place on navigation_sessions n  (cost=0.29..3752.29 rows=200000 width=4) (actual time=0.025..4.589 rows=200000.00 loops=1)
+          Heap Fetches: 14
+          Index Searches: 1
+          Buffers: shared hit=185
+Planning:
+  Buffers: shared hit=192
+Planning Time: 0.323 ms
+Execution Time: 15.646 ms
+=== R13 run 3 ===
+Seq Scan on places p  (cost=4252.29..5664.82 rows=20021 width=24) (actual time=15.428..15.428 rows=0.00 loops=1)
+  Filter: (NOT (ANY (place_id = (hashed SubPlan 1).col1)))
+  Rows Removed by Filter: 40042
+  Buffers: shared hit=1097
+  SubPlan 1
+    ->  Index Only Scan using idx_navigation_origin_place on navigation_sessions n  (cost=0.29..3752.29 rows=200000 width=4) (actual time=0.025..4.558 rows=200000.00 loops=1)
+          Heap Fetches: 14
+          Index Searches: 1
+          Buffers: shared hit=185
+Planning:
+  Buffers: shared hit=192
+Planning Time: 0.328 ms
+Execution Time: 15.459 ms

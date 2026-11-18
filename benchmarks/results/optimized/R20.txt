@@ -1,0 +1,75 @@
+=== R20 run 1 ===
+WindowAgg  (cost=6413.61..6559.94 rows=1000 width=44) (actual time=9.081..10.386 rows=30.00 loops=1)
+  Window: w1 AS (ORDER BY ((navigation_sessions.started_at)::date))
+  Storage: Memory  Maximum Storage: 17kB
+  Buffers: shared hit=3070
+  ->  GroupAggregate  (cost=6413.47..6544.94 rows=1000 width=12) (actual time=9.045..10.365 rows=30.00 loops=1)
+        Group Key: ((navigation_sessions.started_at)::date)
+        Buffers: shared hit=3070
+        ->  Gather Merge  (cost=6413.47..6527.44 rows=1000 width=4) (actual time=9.017..10.119 rows=10989.00 loops=1)
+              Workers Planned: 1
+              Workers Launched: 1
+              Buffers: shared hit=3070
+              ->  Sort  (cost=5413.46..5414.93 rows=588 width=4) (actual time=7.784..7.881 rows=5494.50 loops=2)
+                    Sort Key: ((navigation_sessions.started_at)::date)
+                    Sort Method: quicksort  Memory: 193kB
+                    Buffers: shared hit=3070
+                    Worker 0:  Sort Method: quicksort  Memory: 193kB
+                    ->  Parallel Seq Scan on navigation_sessions  (cost=0.00..5386.41 rows=588 width=4) (actual time=6.887..7.644 rows=5494.50 loops=2)
+                          Filter: (((started_at)::date >= '2026-06-01'::date) AND ((started_at)::date <= '2026-06-30'::date))
+                          Rows Removed by Filter: 94506
+                          Buffers: shared hit=3032
+Planning:
+  Buffers: shared hit=172
+Planning Time: 0.291 ms
+Execution Time: 10.436 ms
+=== R20 run 2 ===
+WindowAgg  (cost=6413.61..6559.94 rows=1000 width=44) (actual time=8.264..9.394 rows=30.00 loops=1)
+  Window: w1 AS (ORDER BY ((navigation_sessions.started_at)::date))
+  Storage: Memory  Maximum Storage: 17kB
+  Buffers: shared hit=3070
+  ->  GroupAggregate  (cost=6413.47..6544.94 rows=1000 width=12) (actual time=8.232..9.374 rows=30.00 loops=1)
+        Group Key: ((navigation_sessions.started_at)::date)
+        Buffers: shared hit=3070
+        ->  Gather Merge  (cost=6413.47..6527.44 rows=1000 width=4) (actual time=8.205..9.101 rows=10989.00 loops=1)
+              Workers Planned: 1
+              Workers Launched: 1
+              Buffers: shared hit=3070
+              ->  Sort  (cost=5413.46..5414.93 rows=588 width=4) (actual time=7.169..7.271 rows=5494.50 loops=2)
+                    Sort Key: ((navigation_sessions.started_at)::date)
+                    Sort Method: quicksort  Memory: 193kB
+                    Buffers: shared hit=3070
+                    Worker 0:  Sort Method: quicksort  Memory: 193kB
+                    ->  Parallel Seq Scan on navigation_sessions  (cost=0.00..5386.41 rows=588 width=4) (actual time=6.286..7.035 rows=5494.50 loops=2)
+                          Filter: (((started_at)::date >= '2026-06-01'::date) AND ((started_at)::date <= '2026-06-30'::date))
+                          Rows Removed by Filter: 94506
+                          Buffers: shared hit=3032
+Planning:
+  Buffers: shared hit=172
+Planning Time: 0.242 ms
+Execution Time: 9.428 ms
+=== R20 run 3 ===
+WindowAgg  (cost=6413.61..6559.94 rows=1000 width=44) (actual time=9.267..10.569 rows=30.00 loops=1)
+  Window: w1 AS (ORDER BY ((navigation_sessions.started_at)::date))
+  Storage: Memory  Maximum Storage: 17kB
+  Buffers: shared hit=3070
+  ->  GroupAggregate  (cost=6413.47..6544.94 rows=1000 width=12) (actual time=9.223..10.547 rows=30.00 loops=1)
+        Group Key: ((navigation_sessions.started_at)::date)
+        Buffers: shared hit=3070
+        ->  Gather Merge  (cost=6413.47..6527.44 rows=1000 width=4) (actual time=9.188..10.277 rows=10989.00 loops=1)
+              Workers Planned: 1
+              Workers Launched: 1
+              Buffers: shared hit=3070
+              ->  Sort  (cost=5413.46..5414.93 rows=588 width=4) (actual time=8.115..8.223 rows=5494.50 loops=2)
+                    Sort Key: ((navigation_sessions.started_at)::date)
+                    Sort Method: quicksort  Memory: 193kB
+                    Buffers: shared hit=3070
+                    Worker 0:  Sort Method: quicksort  Memory: 193kB
+                    ->  Parallel Seq Scan on navigation_sessions  (cost=0.00..5386.41 rows=588 width=4) (actual time=7.113..7.958 rows=5494.50 loops=2)
+                          Filter: (((started_at)::date >= '2026-06-01'::date) AND ((started_at)::date <= '2026-06-30'::date))
+                          Rows Removed by Filter: 94506
+                          Buffers: shared hit=3032
+Planning:
+  Buffers: shared hit=172
+Planning Time: 0.259 ms
+Execution Time: 10.616 ms

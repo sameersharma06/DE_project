@@ -1,0 +1,57 @@
+=== R06 run 1 ===
+Sort  (cost=26.70..26.71 rows=2 width=42) (actual time=1.005..1.006 rows=4.00 loops=1)
+  Sort Key: s.list_name, s.saved_at DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=23 dirtied=2
+  ->  Nested Loop  (cost=0.58..26.69 rows=2 width=42) (actual time=0.040..0.064 rows=4.00 loops=1)
+        Buffers: shared hit=17 dirtied=2
+        ->  Index Scan using saved_places_pkey on saved_places s  (cost=0.29..10.07 rows=2 width=22) (actual time=0.027..0.034 rows=4.00 loops=1)
+              Index Cond: (user_id = 1005)
+              Index Searches: 1
+              Buffers: shared hit=5 dirtied=2
+        ->  Index Scan using places_pkey on places p  (cost=0.29..8.31 rows=1 width=24) (actual time=0.007..0.007 rows=1.00 loops=4)
+              Index Cond: (place_id = s.place_id)
+              Index Searches: 4
+              Buffers: shared hit=12
+Planning:
+  Buffers: shared hit=306
+Planning Time: 0.471 ms
+Execution Time: 1.036 ms
+=== R06 run 2 ===
+Sort  (cost=26.70..26.71 rows=2 width=42) (actual time=0.040..0.040 rows=4.00 loops=1)
+  Sort Key: s.list_name, s.saved_at DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=21
+  ->  Nested Loop  (cost=0.58..26.69 rows=2 width=42) (actual time=0.013..0.024 rows=4.00 loops=1)
+        Buffers: shared hit=15
+        ->  Index Scan using saved_places_pkey on saved_places s  (cost=0.29..10.07 rows=2 width=22) (actual time=0.006..0.007 rows=4.00 loops=1)
+              Index Cond: (user_id = 1005)
+              Index Searches: 1
+              Buffers: shared hit=3
+        ->  Index Scan using places_pkey on places p  (cost=0.29..8.31 rows=1 width=24) (actual time=0.004..0.004 rows=1.00 loops=4)
+              Index Cond: (place_id = s.place_id)
+              Index Searches: 4
+              Buffers: shared hit=12
+Planning:
+  Buffers: shared hit=306
+Planning Time: 0.387 ms
+Execution Time: 0.080 ms
+=== R06 run 3 ===
+Sort  (cost=26.70..26.71 rows=2 width=42) (actual time=0.043..0.044 rows=4.00 loops=1)
+  Sort Key: s.list_name, s.saved_at DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=21
+  ->  Nested Loop  (cost=0.58..26.69 rows=2 width=42) (actual time=0.012..0.023 rows=4.00 loops=1)
+        Buffers: shared hit=15
+        ->  Index Scan using saved_places_pkey on saved_places s  (cost=0.29..10.07 rows=2 width=22) (actual time=0.006..0.006 rows=4.00 loops=1)
+              Index Cond: (user_id = 1005)
+              Index Searches: 1
+              Buffers: shared hit=3
+        ->  Index Scan using places_pkey on places p  (cost=0.29..8.31 rows=1 width=24) (actual time=0.004..0.004 rows=1.00 loops=4)
+              Index Cond: (place_id = s.place_id)
+              Index Searches: 4
+              Buffers: shared hit=12
+Planning:
+  Buffers: shared hit=306
+Planning Time: 0.369 ms
+Execution Time: 0.064 ms

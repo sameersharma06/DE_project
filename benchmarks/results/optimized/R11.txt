@@ -1,0 +1,63 @@
+=== R11 run 1 ===
+GroupAggregate  (cost=6114.44..6236.67 rows=849 width=55) (actual time=18.533..23.996 rows=24.00 loops=1)
+  Group Key: (date_trunc('month'::text, started_at)), travel_mode
+  Buffers: shared hit=3078
+  ->  Gather Merge  (cost=6114.44..6211.20 rows=849 width=23) (actual time=18.125..21.762 rows=56299.00 loops=1)
+        Workers Planned: 1
+        Workers Launched: 1
+        Buffers: shared hit=3078
+        ->  Sort  (cost=5114.43..5115.68 rows=499 width=23) (actual time=16.315..16.818 rows=28149.50 loops=2)
+              Sort Key: (date_trunc('month'::text, started_at)), travel_mode
+              Sort Method: quicksort  Memory: 1941kB
+              Buffers: shared hit=3078
+              Worker 0:  Sort Method: quicksort  Memory: 1920kB
+              ->  Parallel Seq Scan on navigation_sessions  (cost=0.00..5092.07 rows=499 width=23) (actual time=7.849..13.910 rows=28149.50 loops=2)
+                    Filter: (((status)::text = 'COMPLETED'::text) AND (EXTRACT(year FROM started_at) = '2026'::numeric))
+                    Rows Removed by Filter: 71850
+                    Buffers: shared hit=3032
+Planning:
+  Buffers: shared hit=196 read=3
+Planning Time: 0.939 ms
+Execution Time: 24.026 ms
+=== R11 run 2 ===
+GroupAggregate  (cost=6114.44..6236.67 rows=849 width=55) (actual time=16.154..22.341 rows=24.00 loops=1)
+  Group Key: (date_trunc('month'::text, started_at)), travel_mode
+  Buffers: shared hit=3078
+  ->  Gather Merge  (cost=6114.44..6211.20 rows=849 width=23) (actual time=15.777..19.946 rows=56299.00 loops=1)
+        Workers Planned: 1
+        Workers Launched: 1
+        Buffers: shared hit=3078
+        ->  Sort  (cost=5114.43..5115.68 rows=499 width=23) (actual time=14.760..15.309 rows=28149.50 loops=2)
+              Sort Key: (date_trunc('month'::text, started_at)), travel_mode
+              Sort Method: quicksort  Memory: 1924kB
+              Buffers: shared hit=3078
+              Worker 0:  Sort Method: quicksort  Memory: 1937kB
+              ->  Parallel Seq Scan on navigation_sessions  (cost=0.00..5092.07 rows=499 width=23) (actual time=6.695..12.333 rows=28149.50 loops=2)
+                    Filter: (((status)::text = 'COMPLETED'::text) AND (EXTRACT(year FROM started_at) = '2026'::numeric))
+                    Rows Removed by Filter: 71850
+                    Buffers: shared hit=3032
+Planning:
+  Buffers: shared hit=199
+Planning Time: 0.259 ms
+Execution Time: 22.369 ms
+=== R11 run 3 ===
+GroupAggregate  (cost=6114.44..6236.67 rows=849 width=55) (actual time=15.872..21.528 rows=24.00 loops=1)
+  Group Key: (date_trunc('month'::text, started_at)), travel_mode
+  Buffers: shared hit=3078
+  ->  Gather Merge  (cost=6114.44..6211.20 rows=849 width=23) (actual time=15.487..19.167 rows=56299.00 loops=1)
+        Workers Planned: 1
+        Workers Launched: 1
+        Buffers: shared hit=3078
+        ->  Sort  (cost=5114.43..5115.68 rows=499 width=23) (actual time=14.536..15.064 rows=28149.50 loops=2)
+              Sort Key: (date_trunc('month'::text, started_at)), travel_mode
+              Sort Method: quicksort  Memory: 1939kB
+              Buffers: shared hit=3078
+              Worker 0:  Sort Method: quicksort  Memory: 1922kB
+              ->  Parallel Seq Scan on navigation_sessions  (cost=0.00..5092.07 rows=499 width=23) (actual time=6.573..12.122 rows=28149.50 loops=2)
+                    Filter: (((status)::text = 'COMPLETED'::text) AND (EXTRACT(year FROM started_at) = '2026'::numeric))
+                    Rows Removed by Filter: 71850
+                    Buffers: shared hit=3032
+Planning:
+  Buffers: shared hit=199
+Planning Time: 0.266 ms
+Execution Time: 21.552 ms

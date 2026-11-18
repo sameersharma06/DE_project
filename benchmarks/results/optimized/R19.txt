@@ -1,0 +1,90 @@
+=== R19 run 1 ===
+Sort  (cost=8844.08..8847.30 rows=1289 width=40) (actual time=31.468..31.489 rows=1067.00 loops=1)
+  Sort Key: (COALESCE((count(*)), '0'::bigint)) DESC
+  Sort Method: quicksort  Memory: 115kB
+  Buffers: shared hit=3948
+  InitPlan 1
+    ->  Seq Scan on place_categories  (cost=0.00..1.15 rows=1 width=4) (actual time=0.004..0.005 rows=1.00 loops=1)
+          Filter: ((category_name)::text = 'Hospital'::text)
+          Rows Removed by Filter: 11
+          Buffers: shared hit=1
+  ->  Hash Right Join  (cost=8060.74..8776.34 rows=1289 width=40) (actual time=28.307..31.377 rows=1067.00 loops=1)
+        Hash Cond: (navigation_sessions.dest_place_id = p.place_id)
+        Buffers: shared hit=3945
+        ->  HashAggregate  (cost=6532.00..6848.28 rows=31628 width=20) (actual time=26.141..27.952 rows=39263.00 loops=1)
+              Group Key: navigation_sessions.dest_place_id
+              Batches: 1  Memory Usage: 3353kB
+              Buffers: shared hit=3032
+              ->  Seq Scan on navigation_sessions  (cost=0.00..5032.00 rows=200000 width=12) (actual time=0.008..5.849 rows=200000.00 loops=1)
+                    Buffers: shared hit=3032
+        ->  Hash  (cost=1512.63..1512.63 rows=1289 width=24) (actual time=2.159..2.159 rows=1067.00 loops=1)
+              Buckets: 2048  Batches: 1  Memory Usage: 78kB
+              Buffers: shared hit=913
+              ->  Seq Scan on places p  (cost=0.00..1512.63 rows=1289 width=24) (actual time=0.015..2.101 rows=1067.00 loops=1)
+                    Filter: ((category_id = (InitPlan 1).col1) AND (city_id = 1))
+                    Rows Removed by Filter: 38975
+                    Buffers: shared hit=913
+Planning:
+  Buffers: shared hit=305
+Planning Time: 0.609 ms
+Execution Time: 31.609 ms
+=== R19 run 2 ===
+Sort  (cost=8844.08..8847.30 rows=1289 width=40) (actual time=27.830..27.848 rows=1067.00 loops=1)
+  Sort Key: (COALESCE((count(*)), '0'::bigint)) DESC
+  Sort Method: quicksort  Memory: 115kB
+  Buffers: shared hit=3948
+  InitPlan 1
+    ->  Seq Scan on place_categories  (cost=0.00..1.15 rows=1 width=4) (actual time=0.003..0.003 rows=1.00 loops=1)
+          Filter: ((category_name)::text = 'Hospital'::text)
+          Rows Removed by Filter: 11
+          Buffers: shared hit=1
+  ->  Hash Right Join  (cost=8060.74..8776.34 rows=1289 width=40) (actual time=24.897..27.744 rows=1067.00 loops=1)
+        Hash Cond: (navigation_sessions.dest_place_id = p.place_id)
+        Buffers: shared hit=3945
+        ->  HashAggregate  (cost=6532.00..6848.28 rows=31628 width=20) (actual time=22.757..24.392 rows=39263.00 loops=1)
+              Group Key: navigation_sessions.dest_place_id
+              Batches: 1  Memory Usage: 3353kB
+              Buffers: shared hit=3032
+              ->  Seq Scan on navigation_sessions  (cost=0.00..5032.00 rows=200000 width=12) (actual time=0.009..5.381 rows=200000.00 loops=1)
+                    Buffers: shared hit=3032
+        ->  Hash  (cost=1512.63..1512.63 rows=1289 width=24) (actual time=2.133..2.133 rows=1067.00 loops=1)
+              Buckets: 2048  Batches: 1  Memory Usage: 78kB
+              Buffers: shared hit=913
+              ->  Seq Scan on places p  (cost=0.00..1512.63 rows=1289 width=24) (actual time=0.013..2.071 rows=1067.00 loops=1)
+                    Filter: ((category_id = (InitPlan 1).col1) AND (city_id = 1))
+                    Rows Removed by Filter: 38975
+                    Buffers: shared hit=913
+Planning:
+  Buffers: shared hit=305
+Planning Time: 0.518 ms
+Execution Time: 27.964 ms
+=== R19 run 3 ===
+Sort  (cost=8844.08..8847.30 rows=1289 width=40) (actual time=27.163..27.183 rows=1067.00 loops=1)
+  Sort Key: (COALESCE((count(*)), '0'::bigint)) DESC
+  Sort Method: quicksort  Memory: 115kB
+  Buffers: shared hit=3948
+  InitPlan 1
+    ->  Seq Scan on place_categories  (cost=0.00..1.15 rows=1 width=4) (actual time=0.002..0.003 rows=1.00 loops=1)
+          Filter: ((category_name)::text = 'Hospital'::text)
+          Rows Removed by Filter: 11
+          Buffers: shared hit=1
+  ->  Hash Right Join  (cost=8060.74..8776.34 rows=1289 width=40) (actual time=24.228..27.082 rows=1067.00 loops=1)
+        Hash Cond: (navigation_sessions.dest_place_id = p.place_id)
+        Buffers: shared hit=3945
+        ->  HashAggregate  (cost=6532.00..6848.28 rows=31628 width=20) (actual time=22.335..23.959 rows=39263.00 loops=1)
+              Group Key: navigation_sessions.dest_place_id
+              Batches: 1  Memory Usage: 3353kB
+              Buffers: shared hit=3032
+              ->  Seq Scan on navigation_sessions  (cost=0.00..5032.00 rows=200000 width=12) (actual time=0.005..5.305 rows=200000.00 loops=1)
+                    Buffers: shared hit=3032
+        ->  Hash  (cost=1512.63..1512.63 rows=1289 width=24) (actual time=1.886..1.887 rows=1067.00 loops=1)
+              Buckets: 2048  Batches: 1  Memory Usage: 78kB
+              Buffers: shared hit=913
+              ->  Seq Scan on places p  (cost=0.00..1512.63 rows=1289 width=24) (actual time=0.010..1.830 rows=1067.00 loops=1)
+                    Filter: ((category_id = (InitPlan 1).col1) AND (city_id = 1))
+                    Rows Removed by Filter: 38975
+                    Buffers: shared hit=913
+Planning:
+  Buffers: shared hit=305
+Planning Time: 0.460 ms
+Execution Time: 27.283 ms

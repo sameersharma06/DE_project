@@ -1,0 +1,66 @@
+=== R08 run 1 ===
+Sort  (cost=913.51..913.51 rows=2 width=48) (actual time=1.019..1.019 rows=3.00 loops=1)
+  Sort Key: t.recorded_at DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=551 read=83
+  ->  Nested Loop  (cost=0.42..913.50 rows=2 width=48) (actual time=0.082..1.010 rows=3.00 loops=1)
+        Buffers: shared hit=548 read=83
+        ->  Seq Scan on road_segments s  (cost=0.00..55.00 rows=200 width=29) (actual time=0.004..0.085 rows=200.00 loops=1)
+              Filter: (city_id = 1)
+              Rows Removed by Filter: 1800
+              Buffers: shared hit=30
+        ->  Index Only Scan using idx_traffic_segment_recorded on traffic_readings t  (cost=0.42..4.28 rows=1 width=23) (actual time=0.005..0.005 rows=0.01 loops=200)
+              Index Cond: ((segment_id = s.segment_id) AND (recorded_at >= '2026-06-30 18:00:00+05:30'::timestamp with time zone))
+              Filter: ((congestion_level)::text = ANY ('{HEAVY,STANDSTILL}'::text[]))
+              Rows Removed by Filter: 0
+              Heap Fetches: 0
+              Index Searches: 200
+              Buffers: shared hit=518 read=83
+Planning:
+  Buffers: shared hit=333
+Planning Time: 0.661 ms
+Execution Time: 1.032 ms
+=== R08 run 2 ===
+Sort  (cost=913.51..913.51 rows=2 width=48) (actual time=0.279..0.279 rows=3.00 loops=1)
+  Sort Key: t.recorded_at DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=634
+  ->  Nested Loop  (cost=0.42..913.50 rows=2 width=48) (actual time=0.018..0.271 rows=3.00 loops=1)
+        Buffers: shared hit=631
+        ->  Seq Scan on road_segments s  (cost=0.00..55.00 rows=200 width=29) (actual time=0.003..0.066 rows=200.00 loops=1)
+              Filter: (city_id = 1)
+              Rows Removed by Filter: 1800
+              Buffers: shared hit=30
+        ->  Index Only Scan using idx_traffic_segment_recorded on traffic_readings t  (cost=0.42..4.28 rows=1 width=23) (actual time=0.001..0.001 rows=0.01 loops=200)
+              Index Cond: ((segment_id = s.segment_id) AND (recorded_at >= '2026-06-30 18:00:00+05:30'::timestamp with time zone))
+              Filter: ((congestion_level)::text = ANY ('{HEAVY,STANDSTILL}'::text[]))
+              Rows Removed by Filter: 0
+              Heap Fetches: 0
+              Index Searches: 200
+              Buffers: shared hit=601
+Planning:
+  Buffers: shared hit=333
+Planning Time: 0.386 ms
+Execution Time: 0.291 ms
+=== R08 run 3 ===
+Sort  (cost=913.51..913.51 rows=2 width=48) (actual time=0.276..0.277 rows=3.00 loops=1)
+  Sort Key: t.recorded_at DESC
+  Sort Method: quicksort  Memory: 25kB
+  Buffers: shared hit=634
+  ->  Nested Loop  (cost=0.42..913.50 rows=2 width=48) (actual time=0.018..0.269 rows=3.00 loops=1)
+        Buffers: shared hit=631
+        ->  Seq Scan on road_segments s  (cost=0.00..55.00 rows=200 width=29) (actual time=0.003..0.066 rows=200.00 loops=1)
+              Filter: (city_id = 1)
+              Rows Removed by Filter: 1800
+              Buffers: shared hit=30
+        ->  Index Only Scan using idx_traffic_segment_recorded on traffic_readings t  (cost=0.42..4.28 rows=1 width=23) (actual time=0.001..0.001 rows=0.01 loops=200)
+              Index Cond: ((segment_id = s.segment_id) AND (recorded_at >= '2026-06-30 18:00:00+05:30'::timestamp with time zone))
+              Filter: ((congestion_level)::text = ANY ('{HEAVY,STANDSTILL}'::text[]))
+              Rows Removed by Filter: 0
+              Heap Fetches: 0
+              Index Searches: 200
+              Buffers: shared hit=601
+Planning:
+  Buffers: shared hit=333
+Planning Time: 0.371 ms
+Execution Time: 0.289 ms
